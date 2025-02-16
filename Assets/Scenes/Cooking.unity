@@ -624,6 +624,7 @@ GameObject:
   - component: {fileID: 1182072158}
   - component: {fileID: 1182072157}
   - component: {fileID: 1182072156}
+  - component: {fileID: 1182072161}
   m_Layer: 0
   m_Name: Storage
   m_TagString: Untagged
@@ -643,7 +644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caeab0f2a9164ed22b04f7bf04f8e0e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 4
 --- !u!65 &1182072157
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -733,6 +734,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1182072161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182072155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09d356a25591591928a491f14447c2f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxStorage: 100
+  currentStorage: 0
 --- !u!1 &1186635366
 GameObject:
   m_ObjectHideFlags: 0
