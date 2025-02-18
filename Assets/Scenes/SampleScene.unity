@@ -367,6 +367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseCursorPrefab: {fileID: 7866174487766611893, guid: a70941d59d4a3fe42896ae4be4177f93, type: 3}
+  TileCanPlaceCheckPrefab: {fileID: 6258266932200336841, guid: 111b9d4fd63d4c74c8c5069b322921bd, type: 3}
   placementMarkerPrefab: {fileID: 6258266932200336841, guid: e5c552d4a14f3c643a2612d717991cbc, type: 3}
   placementLayer:
     serializedVersion: 2
