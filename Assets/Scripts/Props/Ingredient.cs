@@ -4,12 +4,14 @@ public class Ingredient : MonoBehaviour
 {
     public enum IngredientType
     {
-        Pepper,
         Tomato,
+        Pepper,
         Onion,
         Cauliflower,
         Eggplant,
     }
-    [SerializeField] public IngredientType ingredientType;
-    [SerializeField] public float quality;
+    public IngredientType ingredientType;
+    public int amount;
+    public double quality;
+
 }

@@ -10,7 +10,7 @@ public class PropParser : MonoBehaviour
         Storage,
         Ingredient
     }
-
-    [SerializeField] public PropType type;
+    
+    [SerializeField] public PropType propType;
     
 }

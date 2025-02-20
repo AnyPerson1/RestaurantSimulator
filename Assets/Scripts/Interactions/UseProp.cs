@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CookerPot : MonoBehaviour
+public class UseProp : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
