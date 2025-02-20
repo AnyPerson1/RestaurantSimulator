@@ -470,6 +470,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb766f6e530fafcd69c6ed1ecfa588f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &993058904
 GameObject:
   m_ObjectHideFlags: 0
@@ -5704,7 +5707,7 @@ GameObject:
   - component: {fileID: 2075972251}
   - component: {fileID: 2075972250}
   - component: {fileID: 2075972254}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cooker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5814,7 +5817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caeab0f2a9164ed22b04f7bf04f8e0e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  propType: 0
+  propType: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
