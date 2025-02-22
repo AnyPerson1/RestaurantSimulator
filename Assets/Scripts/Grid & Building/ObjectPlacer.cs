@@ -5,6 +5,8 @@ public class ObjectPlacer : MonoBehaviour
     [Header("Cursor Settings")]
     [SerializeField] private GameObject mouseCursorPrefab;
     private Transform mouseCursorTransform;
+    [SerializeField] GameObject TileCanPlaceCheckPrefab;
+    private Transform tileCanPlaceCheckTransform;
 
     [Header("Placement Marker Settings")]
     [SerializeField] private GameObject placementMarkerPrefab;
@@ -20,6 +22,9 @@ public class ObjectPlacer : MonoBehaviour
 
         GameObject placementMarkerInstance = Instantiate(placementMarkerPrefab, Vector3.zero, placementMarkerPrefab.transform.rotation);
         placementMarkerTransform = placementMarkerInstance.transform;
+
+        GameObject TileCanPlaceCheckInstance = Instantiate(TileCanPlaceCheckPrefab, Vector3.zero, TileCanPlaceCheckPrefab.transform.rotation);
+        tileCanPlaceCheckTransform = TileCanPlaceCheckInstance.transform;
     }
 
     void Update()
@@ -42,6 +47,8 @@ public class ObjectPlacer : MonoBehaviour
 
             if (nearestPlacementNode != null)
             {
+                tileCanPlaceCheckTransform.position = nearestPlacementNode.position;
+
                 placementMarkerTransform.position = Vector3.Lerp(
                     placementMarkerTransform.position,
                     nearestPlacementNode.position,
@@ -83,7 +90,7 @@ public class ObjectPlacer : MonoBehaviour
 
             Transform nearestPlacementNode = FindNearestPlacementNode(placementNodes, mouseCursorTransform.position);
 
-            if (nearestPlacementNode != null)
+            if (nearestPlacementNode != null && !CanPlaceObject.CanPlace())
             {
                 Instantiate(objectToPlace, nearestPlacementNode.position, objectToPlace.transform.rotation);
             }

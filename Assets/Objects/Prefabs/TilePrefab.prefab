@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 1618569822337998872}
   - component: {fileID: 2652981800129037850}
   - component: {fileID: 6447910324835054199}
-  m_Layer: 0
+  - component: {fileID: 1222785352749125532}
+  m_Layer: 10
   m_Name: TilePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,3 +124,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GridPlaceHolder: {fileID: 7866174487766611893, guid: 14b22291faddaa840b43618b40f3bb5c, type: 3}
+--- !u!64 &1222785352749125532
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6258266932200336841}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5495902117074765545, guid: d02b3768e3fbb854f9cb5fe6d2c86fc0, type: 3}
