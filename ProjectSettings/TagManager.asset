@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - PlacementNode
+  - IndicatorRed
+  - IndicatorYellow
+  - IndicatorGreen
   layers:
   - Default
   - TransparentFX
