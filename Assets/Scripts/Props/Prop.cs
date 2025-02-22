@@ -10,9 +10,10 @@ public class Prop : MonoBehaviour, IInteractable
         Storage
     }
     private InteractManager _interactManager;
+    [SerializeField] public int level;
     private void Awake()
     {
-        _interactManager = FindObjectOfType<InteractManager>();
+        _interactManager = FindFirstObjectByType<InteractManager>();
     }
     
     [SerializeField] public PropType propType;
