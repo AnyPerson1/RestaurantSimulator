@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-public class Prop : MonoBehaviour, IInteractable
+public class Prop : MonoBehaviour
 {
     public enum PropType{
         Counter,
@@ -9,17 +10,18 @@ public class Prop : MonoBehaviour, IInteractable
         Furnace,
         Storage
     }
-    private InteractManager _interactManager;
-    [SerializeField] public int level;
-    private void Awake()
-    {
-        _interactManager = FindFirstObjectByType<InteractManager>();
-    }
     
+    [SerializeField] public int level;
+    [SerializeField] public IInteractable interactable;
     [SerializeField] public PropType propType;
 
-    public void Interact()
+    private void Awake()
     {
-        _interactManager.Interact(propType, gameObject);
+        interactable = GetComponent<IInteractable>();
+    }
+
+    private void Start()
+    {
+        interactable?.Interact();
     }
 }

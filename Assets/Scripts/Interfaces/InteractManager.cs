@@ -15,21 +15,21 @@ public class InteractManager : MonoBehaviour
     }
     
     [SerializeField] private LayerMask interactLayer;
+    [SerializeField] public bool canInteract = true;
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (canInteract && Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, interactLayer))
             {
                 Debug.Log("Interaction triggered : "+hit.collider.gameObject.name);
-                hit.collider.gameObject.GetComponent<Prop>().Interact();
             }
         }
     }
 }
-interface IInteractable
+public interface IInteractable
 {
     public void Interact();
 }
