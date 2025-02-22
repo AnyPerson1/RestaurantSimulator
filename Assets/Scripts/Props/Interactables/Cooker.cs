@@ -8,11 +8,14 @@ public class Cooker : MonoBehaviour, IInteractable
     
     [SerializeField] public InteractManager interactManager;
     
+    [Header("Cooker Settings")]
     [SerializeField] public int capacity;
     [SerializeField] private string currentRecipe;
+    [Space(2f)]
     
     [Header("Local Canvas")]
     [SerializeField] private GameObject canvas;
+    [Space(2f)]
     
     [Header("Indicator Settings")]
     [SerializeField] private RectTransform indicator; 
@@ -20,6 +23,7 @@ public class Cooker : MonoBehaviour, IInteractable
     [SerializeField] private RectTransform endPos;   
     [SerializeField] private float speedMultiplier;
     [SerializeField] private float speedMultiplierMultiplier;
+    [Space(2f)]
 
     [Header("Objects")]
     [SerializeField] private GameObject pot;   
