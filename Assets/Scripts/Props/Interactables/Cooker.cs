@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,16 +14,25 @@ public class Cooker : MonoBehaviour, IInteractable
     [SerializeField] private RectTransform indicator;
     [SerializeField] private RectTransform startpos;
     [SerializeField] private RectTransform endpos;
+    [SerializeField] private float interpolationSpeed;
+
+    private void Start()
+    {
+        IndicatorStart();
+    }
+
     public void Interact()
     {
         
     }
 
-    public void IndicatorStart()
+    private IEnumerator IndicatorStart()
     {
-        while (indicator.position.y - endpos.position.y > INDICATOR_INTERPOLATION_MAX_TOLERANCE)
+        while (Vector3.Distance(indicator.position,endpos.position) > INDICATOR_INTERPOLATION_MAX_TOLERANCE)
         {
-            
+            indicator.position = Vector3.Lerp(indicator.position, endpos.position, Time.deltaTime * interpolationSpeed);
         }
+
+        yield return null;
     }
 }
