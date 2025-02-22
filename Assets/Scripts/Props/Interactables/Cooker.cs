@@ -18,7 +18,7 @@ public class Cooker : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        IndicatorStart();
+        StartCoroutine(IndicatorStart());
     }
 
     public void Interact()
@@ -28,11 +28,12 @@ public class Cooker : MonoBehaviour, IInteractable
 
     private IEnumerator IndicatorStart()
     {
+        yield return new WaitForSeconds(2f);
         while (Vector3.Distance(indicator.position,endpos.position) > INDICATOR_INTERPOLATION_MAX_TOLERANCE)
         {
-            indicator.position = Vector3.Lerp(indicator.position, endpos.position, Time.deltaTime * interpolationSpeed);
+            indicator.position = Vector3.Lerp(indicator.position, endpos.position, interpolationSpeed);
+            yield return null;
         }
-
-        yield return null;
+        
     }
 }
