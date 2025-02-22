@@ -12,7 +12,7 @@ public class Prop : MonoBehaviour, IInteractable
     private InteractManager _interactManager;
     private void Awake()
     {
-        _interactManager = FindObjectOfType<InteractManager>();
+        _interactManager = FindFirstObjectByType<InteractManager>();
     }
     
     [SerializeField] public PropType propType;

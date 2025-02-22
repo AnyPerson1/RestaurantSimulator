@@ -1,39 +1,29 @@
 using UnityEngine;
-using System.Collections;
 
 public class CanPlaceObject : MonoBehaviour
 {
     public static bool isColliding = false;
-    [SerializeField] private float checkInterval = 0.5f;
+    public Vector3 boxSize = new Vector3(1, 1, 1);
+    public LayerMask collisionMask;
 
-    private void Start()
+    private void Update()
     {
-        StartCoroutine(CheckCollisionRoutine());
+        CheckForCollisions();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void CheckForCollisions()
     {
-        isColliding = true;
-        Debug.Log("Colliding with: " + other.gameObject.name);
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        isColliding = false;
-        Debug.Log("No longer colliding with: " + other.gameObject.name);
-    }
-
-    private IEnumerator CheckCollisionRoutine()
-    {
-        while (true)
-        {
-            Debug.Log("Collision Status: " + isColliding);
-            yield return new WaitForSeconds(checkInterval);
-        }
+        isColliding = Physics.CheckBox(transform.position, boxSize / 2, Quaternion.identity, collisionMask);
     }
 
     public static bool CanPlace()
     {
         return isColliding;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = isColliding ? Color.red : Color.green;
+        Gizmos.DrawWireCube(transform.position, boxSize);
     }
 }
