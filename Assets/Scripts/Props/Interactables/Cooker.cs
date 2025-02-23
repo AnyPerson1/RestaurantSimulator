@@ -39,13 +39,16 @@ public class Cooker : MonoBehaviour, IInteractable
 
     private bool _indicatorState = false;
     private bool _stopIndicator = false;
+    private CameraState _cameraState;
     
     #endregion
     private void Start()
     {
+        
         interactManager = FindFirstObjectByType<InteractManager>();
         cam = Camera.main.transform;
         camPosition = transform.Find("CamPosition");
+        _cameraState = cam.GetComponent<CameraState>();
     }
     private void Update()
     {
@@ -57,11 +60,18 @@ public class Cooker : MonoBehaviour, IInteractable
     
     public void Interact()
     {
-        StartCoroutine(MoveCamera());
+        if (!_cameraState.isInterpolating)
+        {
+            cam.SetParent(this.transform);
+            StartCoroutine(MoveCamera());
+        }
+        
     }
 
     private IEnumerator MoveCamera()
     {
+        interactManager.canInteract = false;
+        _cameraState.isInterpolating = true;
         while (Vector3.Distance(cam.position, camPosition.position) > INTERPOLATION_MAX_TOLERANCE || Quaternion.Angle(cam.rotation, camPosition.rotation) > INTERPOLATION_MAX_TOLERANCE)
         {
             cam.position = Vector3.Lerp(cam.position, camPosition.position, Time.deltaTime * interpolationSpeed);
@@ -71,6 +81,8 @@ public class Cooker : MonoBehaviour, IInteractable
         
         cam.position = camPosition.position;
         cam.rotation = camPosition.rotation;
+        interactManager.canInteract = true;
+        _cameraState.isInterpolating = false;
     }
     private IEnumerator IndicatorStart()
     {
