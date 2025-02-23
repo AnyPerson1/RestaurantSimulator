@@ -22,6 +22,6 @@ public class Prop : MonoBehaviour
 
     private void Start()
     {
-        interactable?.Interact();
+        
     }
 }

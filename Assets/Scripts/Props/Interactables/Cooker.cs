@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class Cooker : MonoBehaviour, IInteractable
 {
-    private const float INDICATOR_INTERPOLATION_MAX_TOLERANCE = 0.05f;
+    #region Variables
+    private const float INTERPOLATION_MAX_TOLERANCE = 0.05f;
     
-    [SerializeField] public InteractManager interactManager;
+    [SerializeField] private InteractManager interactManager;
+    [Header("Camera Positions")]
+    [SerializeField] private Transform cam;
+    [SerializeField] private Transform camPosition;
+    [SerializeField] private float interpolationSpeed = 1f;
+    [Space(2f)]
     
     [Header("Cooker Settings")]
     [SerializeField] public int capacity;
@@ -23,21 +29,24 @@ public class Cooker : MonoBehaviour, IInteractable
     [SerializeField] private RectTransform endPos;   
     [SerializeField] private float speedMultiplier;
     [SerializeField] private float speedMultiplierMultiplier;
+    [SerializeField] private float delay;
     [Space(2f)]
 
     [Header("Objects")]
     [SerializeField] private GameObject pot;   
     [SerializeField] private GameObject particles;  
+    
 
     private bool _indicatorState = false;
     private bool _stopIndicator = false;
-
-
-    private void Awake()
+    
+    #endregion
+    private void Start()
     {
         interactManager = FindFirstObjectByType<InteractManager>();
+        cam = Camera.main.transform;
+        camPosition = transform.Find("CamPosition");
     }
-    
     private void Update()
     {
         if (_indicatorState && Input.GetMouseButtonDown(0))
@@ -45,18 +54,33 @@ public class Cooker : MonoBehaviour, IInteractable
             _stopIndicator = true;
         }
     }
+    
     public void Interact()
     {
-       Debug.Log("Interact");
+        StartCoroutine(MoveCamera());
+    }
+
+    private IEnumerator MoveCamera()
+    {
+        while (Vector3.Distance(cam.position, camPosition.position) > INTERPOLATION_MAX_TOLERANCE || Quaternion.Angle(cam.rotation, camPosition.rotation) > INTERPOLATION_MAX_TOLERANCE)
+        {
+            cam.position = Vector3.Lerp(cam.position, camPosition.position, Time.deltaTime * interpolationSpeed);
+            cam.rotation = Quaternion.Lerp(cam.rotation, camPosition.rotation, Time.deltaTime * interpolationSpeed);
+            yield return null;
+        }
+        
+        cam.position = camPosition.position;
+        cam.rotation = camPosition.rotation;
     }
     private IEnumerator IndicatorStart()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(delay);
         _indicatorState = true;
         pot.SetActive(true);
         particles.SetActive(true);
         interactManager.canInteract = false;
-        while (Vector3.Distance(indicator.position, endPos.position) > INDICATOR_INTERPOLATION_MAX_TOLERANCE && !_stopIndicator && indicator.position.y < endPos.position.y)
+        
+        while (Vector3.Distance(indicator.position, endPos.position) > INTERPOLATION_MAX_TOLERANCE && !_stopIndicator && indicator.position.y < endPos.position.y)
         {
             speedMultiplier *= speedMultiplierMultiplier;
             indicator.position = new Vector3(indicator.position.x, indicator.position.y * speedMultiplier, indicator.position.z);
@@ -64,9 +88,7 @@ public class Cooker : MonoBehaviour, IInteractable
         }
         
         if (!_stopIndicator)
-        {
             Debug.LogError("Over Cooked");
-        }
         else
         {
             RaycastHit2D hit = Physics2D.Raycast(indicator.position, new Vector2(-1, 0), Mathf.Infinity, LayerMask.GetMask("UI"));
@@ -75,6 +97,7 @@ public class Cooker : MonoBehaviour, IInteractable
                 Debug.Log(hit.collider.tag);
             }
         }
+        
         interactManager.canInteract = true;
         particles.SetActive(false);
         _stopIndicator = false;
