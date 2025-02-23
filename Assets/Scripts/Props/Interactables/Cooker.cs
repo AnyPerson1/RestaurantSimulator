@@ -27,6 +27,7 @@ public class Cooker : MonoBehaviour, IInteractable
     [SerializeField] private RectTransform indicator; 
     [SerializeField] private RectTransform startPos;  
     [SerializeField] private RectTransform endPos;   
+    [SerializeField] private float speed;
     [SerializeField] private float speedMultiplier;
     [SerializeField] private float speedMultiplierMultiplier;
     [SerializeField] private float delay;
@@ -81,6 +82,8 @@ public class Cooker : MonoBehaviour, IInteractable
         
         cam.position = camPosition.position;
         cam.rotation = camPosition.rotation;
+        canvas.SetActive(true);
+        StartCoroutine(IndicatorStart());
         interactManager.canInteract = true;
         _cameraState.isInterpolating = false;
     }
@@ -94,8 +97,8 @@ public class Cooker : MonoBehaviour, IInteractable
         
         while (Vector3.Distance(indicator.position, endPos.position) > INTERPOLATION_MAX_TOLERANCE && !_stopIndicator && indicator.position.y < endPos.position.y)
         {
-            speedMultiplier *= speedMultiplierMultiplier;
-            indicator.position = new Vector3(indicator.position.x, indicator.position.y * speedMultiplier, indicator.position.z);
+            speed *= speedMultiplierMultiplier;
+            indicator.position = new Vector3(indicator.position.x, indicator.position.y * speed, indicator.position.z);
             yield return null;
         }
         
@@ -114,5 +117,13 @@ public class Cooker : MonoBehaviour, IInteractable
         particles.SetActive(false);
         _stopIndicator = false;
         _indicatorState = false;
+    }
+
+    public void ResetCooker()
+    {
+        speed = speedMultiplier;
+        indicator.position = startPos.position;
+        canvas.SetActive(false);
+        pot.SetActive(false);
     }
 }
