@@ -13,7 +13,7 @@ public class InteractManager : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, interactLayer))
             {
-                hit.collider.gameObject.GetComponent<Prop>().interactable.Interact();
+                hit.collider.gameObject.GetComponent<Prop>().interactable?.Interact();
                 Debug.Log("Interaction triggered : "+hit.collider.gameObject.name);
             }
         }

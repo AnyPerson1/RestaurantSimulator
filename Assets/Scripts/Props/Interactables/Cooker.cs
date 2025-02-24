@@ -1,10 +1,14 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class Cooker : MonoBehaviour, IInteractable
 {
     #region Variables
+
+    public TextMeshProUGUI Maslahatguzzar;
+
     private const float INTERPOLATION_MAX_TOLERANCE = 0.05f;
     
     [SerializeField] private InteractManager interactManager;
@@ -110,6 +114,23 @@ public class Cooker : MonoBehaviour, IInteractable
             if (hit.collider != null)
             {
                 Debug.Log(hit.collider.tag);
+                switch (hit.collider.tag)
+                {
+                    case "IndicatorGreen":
+                        Maslahatguzzar.text = "Perfect!";
+                        Maslahatguzzar.color = Color.yellow;
+                        break;
+                    case "IndicatorYellow":
+                        Maslahatguzzar.text = "OK!";
+                        Maslahatguzzar.color = Color.gray;
+                        break;
+                    case "IndicatorRed":
+                        Maslahatguzzar.text = "Too Bad...";
+                        Maslahatguzzar.color = Color.red;
+                        break;
+                }
+                yield return new WaitForSeconds(1f);
+                Maslahatguzzar.text = " ";
             }
         }
         
