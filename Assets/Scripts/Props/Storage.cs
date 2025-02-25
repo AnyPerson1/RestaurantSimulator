@@ -9,6 +9,7 @@ public class Storage : MonoBehaviour
     [SerializeField] public int maxStorage = 100;
     [SerializeField] public int currentStorage = 0;
     [SerializeField] public Dictionary<Ingredient.Type,int> storage = new Dictionary<Ingredient.Type, int>();
+    [SerializeField] public List<Ingredient> ingredients = new List<Ingredient>();
 
 
     // returns if there is a leftover from fill

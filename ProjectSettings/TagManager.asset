@@ -12,6 +12,7 @@ TagManager:
   - Indicator
   - IndicatorStartPos
   - IndicatorEndPos
+  - GlobalStorage
   layers:
   - Default
   - TransparentFX
