@@ -8,6 +8,10 @@ TagManager:
   - IndicatorRed
   - IndicatorYellow
   - IndicatorGreen
+  - CookingPanel
+  - Indicator
+  - IndicatorStartPos
+  - IndicatorEndPos
   layers:
   - Default
   - TransparentFX
