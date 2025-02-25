@@ -14,13 +14,17 @@ public class RecipePanel : MonoBehaviour
 
     private void Start()
     {
-        //storage ye eriþip içindeki ingredientleri alýp ekleme;
+        //storage ye eriï¿½ip iï¿½indeki ingredientleri alï¿½p ekleme;
     }
 
-    public void AddIngredient(Ingredient ingredient)
+    public void AddIngredient(Ingredient.Type ingredient, int amount, double quality)
     {
         GameObject slot = Instantiate(ingredientSlotPrefab);
         slot.transform.SetParent(ingredientSlotParent.transform);
-        ingredientSlots.Add(slot,ingredient);
+        Ingredient ingredientClass = slot.GetComponent<Ingredient>();
+        ingredientClass.ingredientType = ingredient;
+        ingredientClass.amount = amount;
+        ingredientClass.quality = quality;
+        ingredientSlots.Add(slot , ingredientClass);
     }
 }

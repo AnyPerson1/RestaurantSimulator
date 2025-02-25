@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class Ingredient : MonoBehaviour
+public struct Ingredient
 {
-    public enum IngredientType
+    public enum Type
     {
         Tomato,
         Pepper,
@@ -10,8 +10,14 @@ public class Ingredient : MonoBehaviour
         Cauliflower,
         Eggplant,
     }
-    public IngredientType ingredientType;
+    public Type ingredientType;
     public int amount;
     public double quality;
-
+    
+    public Ingredient(Type type, int amount, double quality)
+    {
+        this.ingredientType = type;
+        this.amount = amount;
+        this.quality = quality;
+    }
 }
