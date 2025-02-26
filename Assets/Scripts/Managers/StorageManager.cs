@@ -5,18 +5,32 @@ using UnityEngine;
 public class StorageManager : MonoBehaviour
 {
     [SerializeField] public List<Ingredient> storedIngredients;
+    [SerializeField] public List<Storage> storagesInScene;
 
     private void Awake()
     {
+        storagesInScene = new List<Storage>();
         storedIngredients = new List<Ingredient>();
-        // Ingredient example = new Ingredient();
-        // example.ingredientType = Ingredient.Type.Tomato;
-        // example.amount = 50;
-        // storedIngredients.Add(example);
+        Ingredient example = new Ingredient();
+        example.ingredientType = Ingredient.Type.Tomato;
+        example.amount = 50;
+        storedIngredients.Add(example);
     }
 
+
+    // Expensive method ahead
+    // Alternative: Add storage components to a public list (e.g., storagesInScene) dynamically 
+    // in the Start method using the Storage script.
+    // After that, compare the count of scene objects with the count of the list.
+
+    //Use this method if its seriously necessary.
     public void ReloadGlobalStorage()
     {
-        
+        storagesInScene.Clear();
+        GameObject[] storageObjects = GameObject.FindGameObjectsWithTag("LocalStorage");
+        foreach (GameObject storageObject in storageObjects)
+        {
+            storagesInScene.Add(storageObject.GetComponent<Storage>());
+        }
     }
 }
