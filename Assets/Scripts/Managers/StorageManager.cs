@@ -6,15 +6,18 @@ public class StorageManager : MonoBehaviour
 {
     [SerializeField] public List<Ingredient> storedIngredients;
     [SerializeField] public List<Storage> storagesInScene;
+    public bool storageReady = false;
 
     private void Awake()
     {
+        storageReady = false;
         storagesInScene = new List<Storage>();
         storedIngredients = new List<Ingredient>();
         Ingredient example = new Ingredient();
         example.ingredientType = Ingredient.Type.Tomato;
         example.amount = 50;
         storedIngredients.Add(example);
+        storageReady = true;
     }
 
 
@@ -33,4 +36,31 @@ public class StorageManager : MonoBehaviour
             storagesInScene.Add(storageObject.GetComponent<Storage>());
         }
     }
+    public void AddIngredients(List<Ingredient> ingredients)
+    {
+        foreach (var ingredient in ingredients)
+        {
+            bool found = false;
+
+            for (int i = 0; i < storedIngredients.Count; i++)
+            {
+                if (storedIngredients[i].ingredientType == ingredient.ingredientType)
+                {
+                    storedIngredients[i] = new Ingredient(
+                        storedIngredients[i].ingredientType,
+                        storedIngredients[i].amount + ingredient.amount,
+                        storedIngredients[i].quality
+                    );
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                storedIngredients.Add(ingredient);
+            }
+        }
+    }
+
 }
