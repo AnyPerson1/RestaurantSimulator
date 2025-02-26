@@ -26,11 +26,11 @@ public class Storage : MonoBehaviour
 
     private void AddRandomStorage()
     {
-        AddIngredient(new Ingredient(Ingredient.Type.Onion,UnityEngine.Random.Range(5,30),0.5D));
-        AddIngredient(new Ingredient(Ingredient.Type.Tomato,UnityEngine.Random.Range(5, 30) , 0.5D));
-        AddIngredient(new Ingredient(Ingredient.Type.Pepper,UnityEngine.Random.Range(5, 30), 0.5D));
-        AddIngredient(new Ingredient(Ingredient.Type.Eggplant,UnityEngine.Random.Range(5, 30), 0.5D));
-        AddIngredient(new Ingredient(Ingredient.Type.Cauliflower,UnityEngine.Random.Range(5, 30) ,0.5D));
+        AddIngredient(new Ingredient(Ingredient.Type.Onion,UnityEngine.Random.Range(5,150),0.5D));
+        AddIngredient(new Ingredient(Ingredient.Type.Tomato,UnityEngine.Random.Range(5, 150) , 0.5D));
+        AddIngredient(new Ingredient(Ingredient.Type.Pepper,UnityEngine.Random.Range(5, 150), 0.5D));
+        AddIngredient(new Ingredient(Ingredient.Type.Eggplant,UnityEngine.Random.Range(5, 150), 0.5D));
+        AddIngredient(new Ingredient(Ingredient.Type.Cauliflower,UnityEngine.Random.Range(5, 150) ,0.5D));
     }
 
     private void AddIngredient(Ingredient ingredient)
@@ -49,5 +49,35 @@ public class Storage : MonoBehaviour
         }
 
         ingredients.Add(ingredient);
+    }
+    private void RemoveIngredient(Ingredient ingredient)
+    {
+        for (int i = 0; i < ingredients.Count; i++)
+        {
+            if (ingredients[i].ingredientType == ingredient.ingredientType)
+            {
+                int newAmount = ingredients[i].amount - ingredient.amount;
+
+                if (newAmount > 0)
+                {
+                    ingredients[i] = new Ingredient(
+                        ingredients[i].ingredientType,
+                        newAmount,
+                        ingredients[i].quality
+                    );
+                }
+                else if (newAmount == 0)
+                {
+                    ingredients.RemoveAt(i);
+                }
+                else
+                {
+                    Debug.LogError("Removing amount from storage was bigger than current stored ingredient amount. So process canceled.");
+                    return;
+                    
+                }
+                return;
+            }
+        }
     }
 }

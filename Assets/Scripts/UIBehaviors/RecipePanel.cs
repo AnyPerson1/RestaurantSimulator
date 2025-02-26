@@ -16,6 +16,7 @@ public class RecipePanel : MonoBehaviour
     [SerializeField] private GameObject ingredientSlotPrefab;
     [SerializeField] private GameObject recipeSlotPrefab;
 
+    
     [SerializeField] public List<Ingredient> ingredients;
 
     private void Awake()
@@ -37,7 +38,14 @@ public class RecipePanel : MonoBehaviour
 
     private void Start()
     {
-        ReloadPanel();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            ReloadPanel();
+        }
     }
 
     public void ReloadPanel()
@@ -65,6 +73,7 @@ public class RecipePanel : MonoBehaviour
         foreach (Ingredient ingredient in ingredients)
         {
             GameObject element = Instantiate(ingredientSlotPrefab, ingredientSlotParent.transform);
+            element.GetComponent<Button>().onClick = new Button.ButtonClickedEvent();
             element.transform.GetChild(0).GetComponent<Image>().sprite = GetSpriteOfIngredient(ingredient.ingredientType);
             element.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = ingredient.amount.ToString();
         }
