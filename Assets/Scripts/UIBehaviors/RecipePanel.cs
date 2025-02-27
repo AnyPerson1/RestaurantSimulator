@@ -9,7 +9,9 @@ public class RecipePanel : MonoBehaviour
 {
     [SerializeField] private StorageManager globalStorage;
     [SerializeField] private GameObject noSourceFoundText;
-    
+    [SerializeField] public List<Button> ingredientButtons;
+    [SerializeField] public List<Button> recipeButtons;
+     
     [SerializeField] private RectTransform ingredientSlotParent;
     [SerializeField] private RectTransform recipeSlotParent;
 
@@ -36,10 +38,6 @@ public class RecipePanel : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-    }
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -47,6 +45,8 @@ public class RecipePanel : MonoBehaviour
             ReloadPanel();
         }
     }
+
+    #region IngredientLoad
 
     public void ReloadPanel()
     {
@@ -70,13 +70,19 @@ public class RecipePanel : MonoBehaviour
         else
             noSourceFoundText.SetActive(false);
         
+        ingredientButtons.Clear();
         foreach (Ingredient ingredient in ingredients)
         {
             GameObject element = Instantiate(ingredientSlotPrefab, ingredientSlotParent.transform);
-            element.GetComponent<Button>().onClick = new Button.ButtonClickedEvent();
             element.transform.GetChild(0).GetComponent<Image>().sprite = GetSpriteOfIngredient(ingredient.ingredientType);
             element.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = ingredient.amount.ToString();
+            ingredientButtons.Add(element.GetComponent<Button>());
         }
+        foreach (Transform recipe in recipeSlotParent)
+        {
+            recipeButtons.Add(recipe.GetComponent<Button>());
+        }
+        DefineButtonEvents();
     }
 
     private Sprite GetSpriteOfIngredient(Ingredient.Type ingredientType)
@@ -88,4 +94,20 @@ public class RecipePanel : MonoBehaviour
         }
         return sprite;
     }
+    #endregion
+    #region ButtonEvents
+    public void DefineButtonEvents()
+    {
+        for (int i = 0; i < ingredientButtons.Count; i++)
+        {
+            int buttonIndex = i;
+            ingredientButtons[i].onClick.AddListener(() => IngredientButtonEvent(buttonIndex));
+        }
+    }
+
+    public void IngredientButtonEvent(int buttonID)
+    {
+        Debug.Log("Button " + buttonID);
+    }
+    #endregion
 }

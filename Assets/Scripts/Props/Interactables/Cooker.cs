@@ -102,7 +102,7 @@ public class Cooker : MonoBehaviour, IInteractable
         while (Vector3.Distance(indicator.position, endPos.position) > INTERPOLATION_MAX_TOLERANCE && !_stopIndicator && indicator.position.y < endPos.position.y)
         {
             speed *= speedMultiplierMultiplier;
-            indicator.position = new Vector3(indicator.position.x, indicator.position.y * speed, indicator.position.z);
+            indicator.position = new Vector3(indicator.position.x, indicator.position.y + (speed * Time.deltaTime), indicator.position.z);
             yield return null;
         }
         
