@@ -37,7 +37,11 @@ public class RecipePanel : MonoBehaviour
             Debug.LogError("GlobalStorage object with tag 'GlobalStorage' not found.");
         }
     }
-
+    private void Start()
+    {
+        ingredientButtons = new List<Button>();
+        recipeButtons = new List<Button>();
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -69,8 +73,9 @@ public class RecipePanel : MonoBehaviour
         }
         else
             noSourceFoundText.SetActive(false);
-        
+
         ingredientButtons.Clear();
+        recipeButtons.Clear();
         foreach (Ingredient ingredient in ingredients)
         {
             GameObject element = Instantiate(ingredientSlotPrefab, ingredientSlotParent.transform);
@@ -103,9 +108,18 @@ public class RecipePanel : MonoBehaviour
             int buttonIndex = i;
             ingredientButtons[i].onClick.AddListener(() => IngredientButtonEvent(buttonIndex));
         }
+        for (int i = 0; i < recipeButtons.Count; i++)
+        {
+            int buttonIndex = i;
+            recipeButtons[i].onClick.AddListener(() => RecipeButtonEvent(buttonIndex));
+        }
     }
 
     public void IngredientButtonEvent(int buttonID)
+    {
+        Debug.Log(ingredientButtons[buttonID].transform.GetChild(0).GetComponent<Image>().sprite.name);
+    }
+    public void RecipeButtonEvent(int buttonID)
     {
         Debug.Log("Button " + buttonID);
     }

@@ -2043,9 +2043,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   globalStorage: {fileID: 0}
   noSourceFoundText: {fileID: 1502716458}
-  buttons: []
+  ingredientButtons: []
+  recipeButtons: []
   ingredientSlotParent: {fileID: 2007094738}
-  recipeSlotParent: {fileID: 1265060660}
+  recipeSlotParent: {fileID: 493200049}
   ingredientSlotPrefab: {fileID: 5047267216393717271, guid: e263b127dda8831adba1f07e7478c831, type: 3}
   recipeSlotPrefab: {fileID: 3770870597296527218, guid: 81afef50b81732089811ebde928a8f56, type: 3}
 --- !u!1 &1034455168
